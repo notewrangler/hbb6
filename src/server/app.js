@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var chalk = require('chalk');
 var http = require('http');
+var jsonServer = require('json-server');
 var request = require('request');
 var config = require('config');
 var conf = require('config');
@@ -15,51 +16,25 @@ module.exports = function (config) {
 
   config = Object.assign(defaultConfig, config);
 
+
+
   var app = express();
 //middleware here
   app.use(express.static(config.root));
   app.use(express.static('src'));
   app.use(require('body-parser').json());
 
-  app.get("/theroute", function(req,res){
-    res.send('theroute')
-  })
+  // var apiServer = jsonServer.create();
+  // var apiRouter = jsonServer.router('db.json');
+  //
+  // apiServer.use(jsonServer.defaults());
+  // apiServer.use(apiRouter);
+
+
 
   app.get("*", function(req, res){
     res.sendFile(path.resolve(config.root + '/index.html'));
   });
-
-  // app.get("/series", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-  //
-  // app.get("concert-detail/:id", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-  //
-  // app.get("/guests", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-  //
-  // app.get("guest-detail/:id", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-  //
-  // app.get("/about-us", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-  //
-  // app.get("/director", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-  //
-  // app.get("/portal", function(req, res){
-  //   res.sendFile(path.resolve(config.root + '/index.html'));
-  // });
-
-
-
-
 
 
   app.post("/mail", function(req, res) {
@@ -89,6 +64,7 @@ module.exports = function (config) {
   var server = http.createServer(app);
 
   server.listen(config.port, config.host);
+  // apiServer.listen(config.get('api.port'));
 
   console.log((chalk.cyan('Server started at http://' + config.host + ':' + config.port)));
 }

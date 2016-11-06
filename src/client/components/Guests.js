@@ -1,9 +1,8 @@
 import React from 'react';
-import { Component } from 'react';
+import { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { getGuests } from '../actions/index';
-// import GuestCardData from '../data/guestCard';
 import GuestSplash from './GuestSplash';
 import {GridTile} from 'material-ui/GridList';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -17,81 +16,84 @@ const styles = {
 		height: 500
 	},
 	gridBody: {
-		marginBottom: '6%'
+		marginBottom: '6%',
+		zIndex: 4
+	},
+	gridLi: {
+		fontSize: '1.2em',
+		color: 'white'
 	}
 }
 
 
-
 class Guests extends Component {
-  componentWillMount() {
-    this.props.getGuests();
-  }
+	constructor(props){
+		super(props)
 
-  buildRows(guestList) {
-    var newBlock = [];
-    var gList = guestList
-      if (gList.length > 0) {
-        var guestChunk = gList.splice(0,3)
-        newBlock.push(guestChunk);
-        return this.buildRows(gList);
-      } else {
-        return newBlock;
-      }
-    };
+		this.renderGrid = this.renderGrid.bind(this)
+		// this.buildRows = this.buildRows.bind(this)
+	}
 
-  renderPhotoGrid(){
+	componentWillMount() {
+		this.props.getGuests();
+	}
 
-      var newRows = [];
-      newRows = this.buildRows(this.props.guests)
 
-      return (
-        <div className="container" style={styles.gridBody}>
-          {newRows.map(function(blockRow){
-            return <div className="row" key={blockRow[0].id}>
-                {blockRow.map(function(tile){
-                  return (
-                    <div className="col-md-4" key={tile.id}>
-                    <Link to={`guest-detail/${tile.id}`}>
-                    <GridTile
-                      style={styles.gridTile}
-                      title={tile.name}
-                      subtitle={<span>{tile.date}--{tile.concert}</span>}
-                      actionIcon={<RaisedButton label="Bio" primary={true}></RaisedButton>}
-                    >
-                      <img src={tile.photoUrl} />
-                    </GridTile>
-                    </Link>
-                    </div>
-                  )
-                })}
-            </div>
-            })}
-        </div>
-      )
-    }
+
 
   render() {
     if(!this.props.guests){
       return <h1 style={{color: 'white'}}>Loading...</h1>
     }
-    
+		console.log(this.props.guests);
+
     return (
 			<div className="container-fluid">
 					<GuestSplash />
-          {console.log(this.props.guests)}
-
-    			{this.renderPhotoGrid()}
-    	</div>
-    );
+					<div className="container" style={styles.gridBody}>
+						{this.renderGrid(this.props.guests)}
+		      </div>
+			</div>
+		)
   }
+	renderGrid(blocks) {
+
+		return (
+			<div>
+			{blocks.map(function(blockRow){
+				return <div className="row" key={blockRow[0].id}>
+						{blockRow.map(function(tile){
+							return (
+								<div className="col-md-4" key={tile.id}>
+								<Link to={`guest-detail/${tile.id}`}>
+								<GridTile
+									style={styles.gridTile}
+									title={tile.name}
+									subtitle={<span>{tile.date}--{tile.concert}</span>}
+									actionIcon={<RaisedButton label="Bio" primary={true}></RaisedButton>}
+								>
+									<img src={tile.photoUrl} />
+								</GridTile>
+								</Link>
+								</div>
+							)
+							})}
+						</div>
+				})}
+			</div>
+		)
+	}
 }
+
+
+
+
+
 
 function mapStateToProps(state){
-  return {guests: state.guestList};
+  return { guests: state.guests.all };
 }
 
-export default connect(mapStateToProps, { getGuests })(Guests);
 
 
-//  }
+export default connect(mapStateToProps, {getGuests})(Guests)

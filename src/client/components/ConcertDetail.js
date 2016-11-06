@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { getConcert} from '../actions/index'
+import { getConcert } from '../actions/index'
 // import seriesList from '../data/seriesList';
 
 
@@ -46,21 +46,11 @@ class ConcertDetail extends Component {
 	}
 
 	render() {
+		if (!this.props.concert){
+			return <h3 style={{color: 'white'}}>Loading...</h3>
+		}
+		const concert = this.props.concert;
 		console.log(this.props.concert);
-		// const  = this.props.params.id;
-		// let concerti = []
-		// let concert = {}
-		// concerti = seriesList.filter(function(item){
-		// 	if (item.cid === cID) {
-		// 		return true
-		// 	} else {
-		// 		return false
-		// 	}
-		// });
-
-
-
-		// concert = concerti[0]
 		const concertImg = concert.picUrl
 		const bpthref = `http://www.brownpapertickets.com/event/${concert.bptid}`
 		const script1 = document.createElement("script");
@@ -119,7 +109,7 @@ class ConcertDetail extends Component {
 }
 
 function mapStateToProps(state){
-	return {concert: state.concert }
+	return {concert: state.series.concert }
 }
 
 export default connect(mapStateToProps, { getConcert })(ConcertDetail);

@@ -1,16 +1,17 @@
 var gulp = require('gulp');
 var webpack = require('webpack-stream');
 // var serve = require('gulp-serve');
+var chalk = require('chalk');
 var config = require('config');
 var jsonServer = require('json-server');
 var serve = require('./src/server/app');
 
 // Webpack
-gulp.task('webpack', function () {
-  return gulp.src('./src/app.js')
-    .pipe(webpack(require('./webpack.config.js')))
-    .pipe(gulp.dest('./dist'));
-});
+// gulp.task('webpack', function () {
+//   return gulp.src('./src/app.js')
+//     .pipe(webpack(require('./webpack.config.js')))
+//     .pipe(gulp.dest('./dist'));
+// });
 
 // JSON API Server - run a REST server via a simple json file
 gulp.task('serve:api', function (cb) {
@@ -18,9 +19,9 @@ gulp.task('serve:api', function (cb) {
   var router = jsonServer.router('db.json');
 
   apiServer.use(jsonServer.defaults());
-  apiServer.use(router);
+  apiServer.use('/api', router);
   apiServer.listen(config.get('api.port'));
-
+  console.log((chalk.cyan('JsonServer started at http://localhost:' + config.api.port)));
   cb();
 });
 
@@ -31,9 +32,9 @@ gulp.task('serve:web', serve({
 }));
 
 // Watch for changes and reload stuff
-gulp.task('watch', function () {
-  gulp.watch('./src/client/**/*', ['webpack']);
-  gulp.watch('./src/server/**/*', ['serve:web']);
-});
+// gulp.task('watch', function () {
+//   gulp.watch('./src/client/**/*', ['webpack']);
+//   gulp.watch('./src/server/**/*', ['serve:web']);
+// });
 
-gulp.task('default', ['webpack', 'serve:web', 'serve:api', 'watch']);
+gulp.task('default', ['serve:web', 'serve:api']);

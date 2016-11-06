@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-// import seriesList from '../data/seriesList';
 import { connect } from 'react-redux';
 import { getSeries } from '../actions/index';
 import SeriesSplash from './SeriesSplash';
@@ -14,6 +13,7 @@ const styles = {
 }
 
 class Series extends Component {
+
   componentWillMount(){
     this.props.getSeries();
   }
@@ -56,7 +56,7 @@ class Series extends Component {
 }
 
 function mapStateToProps(state){
-  return { series: state.series[0] }
+  return { series: state.series.all }
 }
 
 export default connect(mapStateToProps, { getSeries })(Series);

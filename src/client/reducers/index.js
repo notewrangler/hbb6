@@ -15,37 +15,27 @@ export const nextConcert = function(state = {}, action) {
 	}
 }
 
-export const series = function(state = [], action) {
+const INITIAL_SERIES_STATE = {all: [], concert: null};
+
+export const seriesReducer = function(state = INITIAL_SERIES_STATE, action) {
 	switch (action.type) {
 		case GET_SERIES:
-			return [...state, action.payload];
+			return {...state, all: action.payload};
+		case GET_CONCERT:
+			return {...state, concert: action.payload};
 		default:
 			return state;
 	}
 }
 
-export const guests = function(state = [], action) {
+const INITIAL_GUESTS_STATE = {all: [], artist: null};
+
+export const guestsReducer = function(state = INITIAL_GUESTS_STATE, action) {
 	switch (action.type) {
 		case GET_GUESTS:
-			return [...state, action.payload];
-		default:
-			return state;
-	}
-}
-
-export const concert = function(state = {}, action){
-	switch (action.type) {
-		case GET_CONCERT:
-			return[action.payload, ...state];
-		default:
-			return state;
-	}
-}
-
-export const artist = function(state = {}, action){
-	switch (action.type) {
+			return {...state, all: action.payload};
 		case GET_ARTIST:
-			return[...state, action.payload];
+			return {...state, artist: action.payload};
 		default:
 			return state;
 	}

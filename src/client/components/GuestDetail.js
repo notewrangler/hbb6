@@ -13,7 +13,7 @@ const styles = {
 		width: '100%',
 		backgroundRepeat: 'no-repeat',
 		backgroundSize: 'cover',
-		marginTop: 0,
+		marginTop: 50,
 		backgroundPosition: 'top',
 		maxHeight: '180em',
 		zIndex: '-1'
@@ -30,6 +30,12 @@ const styles = {
 	},
 	ptag: {
 		fontSize: "2rem"
+	},
+	photoCredit: {
+		position: 'fixed',
+		right: 0,
+		top: 60,
+		color: '#CCCCCC'
 	}
 }
 
@@ -43,8 +49,7 @@ const styles = {
 		if (!this.props.artist) {
 			return <div>loading...</div>
 		}
-		console.log(this.props.artist);
-		
+
 		const artist = this.props.artist;
 		return (
 
@@ -77,7 +82,7 @@ const styles = {
 
 
 function mapStateToProps(state) {
-	return {artist: state.artist}
+	return {artist: state.guests.artist}
 }
 
 export default connect(mapStateToProps, {getArtist})(GuestDetail);

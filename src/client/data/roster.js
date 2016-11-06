@@ -91,6 +91,14 @@ const Roster = [
 		content: "Greg started playing bass around 1977 after years of rejection while gigging as a guitar player.  He played regionally in Northwestern Pennsylvania with numerous combos and orchestras and was  'schooled' on the gig by fantastic musicians while studying music at nearby Clarion University.  While in Pennsylvania he was introduced to modern dance by working with the Paul Taylor Dance Company for a couple of summers when it was in residence at nearby Allegheny College. His vocation as a golf course superintendent brought him from Pennsylvania to Indiana for a job with the City of Noblesville in 1984 and has been here ever since. After about two years of working a new job and making a young family, he began playing with Indianapolis bands such as New Ventures,  Northwinds, Tommy Wills,  Stardusters, American Cabaret Theater,  and the Indianapolis Jazz Orchestra. Lately, he has been enjoying an eclectic musical life with The Lonesome Sharks (bluegrass),  David Hartman Band (jazz/fusion) , Bob Meyer Rhythm-8 ( original arrangements), Atlanta Music Hall Band ( Great American Songbook), Noblesville First United Methodist Church (orchestra), and  Becky Archibald (original jazz compositions ).  In his newly appointed role playing bass with the Heartland Big Band, according to Greg,  'is something I always look forward to because of their great musicianship, challenging arrangements, and wonderful vocalists'."
 	}
 
+	{
+		"id": 13,
+		"name": "Chooch Kennedy",
+		"concert": "POP! Goes the Big Band",
+		"date": "February 10 & 11, 2017",
+		"photoUrl": "../../img/guests/chooch_kennedy.png"
+	}
+
 ]
 
 export default Roster;
