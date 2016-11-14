@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 
-const missionImageUrl = '../../img/bigband.jpg'
+const missionImageUrl = '../../img/about-us.jpg'
 
 
 const styles = {

@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var chalk = require('chalk');
 var http = require('http');
-var jsonServer = require('json-server');
 var request = require('request');
 var config = require('config');
 var conf = require('config');
@@ -23,13 +22,6 @@ module.exports = function (config) {
   app.use(express.static(config.root));
   app.use(express.static('src'));
   app.use(require('body-parser').json());
-
-  // var apiServer = jsonServer.create();
-  // var apiRouter = jsonServer.router('db.json');
-  //
-  // apiServer.use(jsonServer.defaults());
-  // apiServer.use(apiRouter);
-
 
 
   app.get("*", function(req, res){

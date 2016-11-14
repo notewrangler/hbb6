@@ -63,7 +63,7 @@ const styles = {
   	backgroundSize: 'cover',
   	marginTop: '10%',
     marginBottom: '6%',
-  	height: '120em',
+  	height: '200em',
   	borderRadius: '10px',
     fontFamily: 'Federo'
   },
@@ -118,28 +118,51 @@ const TitleBlock = () => (
 
 
 
-
-
 class Home extends Component {
+  constructor(props){
+		super(props)
+
+		this.renderNextConcert = this.renderNextConcert.bind(this)
+		// this.buildRows = this.buildRows.bind(this)
+	}
+
   componentWillMount(){
     this.props.getNextConcert();
   };
 
-  renderNextConcert() {
-    if (!this.props.nextC){
-      return <h1 style={{color: 'white'}}>Loading...</h1>
+
+  render() {
+
+      return (
+        <div>
+            <Splash />
+            <TitleBlock />
+            <div>
+              {this.renderNextConcert(this.props.nextC)}
+
+              }
+
+            </div>
+
+        </div>
+      );
+  }
+
+  renderNextConcert(concert) {
+    if (!this.props.nextC) {
+      return <h3 style={{color: 'white'}}>Loading...</h3>
     }
-    // console.log(this.props.nextC);
-    let concertUrl = `concert-detail/${this.props.nextC.id}`
+
+    let concertUrl = `concert-detail/${concert.id}`
     return (
 			<div style={styles.panel} className="container">
 				<div style={styles.content} className="row">
 						<h3>Our Next Concert...</h3>
 
-            <h1>{this.props.nextC.title}</h1>
+            <h1>{concert.title}</h1>
             <div>
             <Link to={concertUrl}>
-              <img src={this.props.nextC.posterUrl} style={styles.posterStyle}/>
+              <img src={concert.posterUrl} style={styles.posterStyle}/>
             </Link>
 						</div>
             <Link to={concertUrl} style={styles.buttonStyle}>
@@ -152,23 +175,6 @@ class Home extends Component {
     );
   }
 
-
-  render() {
-    // if(!this.props.nextConcert){
-    //   return (<div>Loading...</div>)
-    // }
-      return (
-        <div>
-            <Splash />
-            <TitleBlock />
-            <div>
-              {this.renderNextConcert()}
-            </div>
-
-        </div>
-      );
-    // }
-  }
 }
 
 function mapStateToProps(state) {

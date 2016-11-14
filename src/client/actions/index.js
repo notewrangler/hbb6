@@ -18,15 +18,17 @@ export function getNextConcert() {
 		request.then(({data}) => {
 			console.log(data);
 			const today = new Date;
-			var nextC = [];
-			nextC = data.reduce(function(a,b){
+			var upcoming = [];
+			upcoming = data.filter(function(a){
 				var next = new Date(a.nextDay);
 				if (Date.parse(next) >= Date.parse(today)) {
-					return a
+					return true
 				} else {
-					return b
+					return false
 				}
 			});
+			var nextC = upcoming[0]
+			console.log(nextC);
 			dispatch({type: GET_NEXT_CONCERT,	payload: nextC})
 		});
 	};
